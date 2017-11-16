@@ -1,6 +1,9 @@
 package br.com.lny.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,7 +35,6 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Image> images;
 
-    /*Default constructor*/
     public Product() {}
 
     public Product(String name, String description, Product parent, Set<Product> children, Set<Image> images) {
@@ -76,7 +78,7 @@ public class Product implements Serializable {
     }
 
     public Set<Product> getChildren() {
-        return children;
+        return Sets.newHashSet(children);
     }
 
     public void setChildren(Set<Product> children) {
@@ -84,7 +86,7 @@ public class Product implements Serializable {
     }
 
     public Set<Image> getImages() {
-        return images;
+        return Sets.newHashSet(images);
     }
 
     public void setImages(Set<Image> images) {
