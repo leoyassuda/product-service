@@ -1,8 +1,9 @@
 package br.com.lny.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.google.common.collect.Sets;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Product implements Serializable {
 
@@ -79,7 +82,7 @@ public class Product implements Serializable {
     }
 
     public Set<Product> getChildren() {
-        return Sets.newHashSet(children);
+        return children;
     }
 
     public void setChildren(Set<Product> children) {
@@ -87,7 +90,7 @@ public class Product implements Serializable {
     }
 
     public Set<Image> getImages() {
-        return Sets.newHashSet(images);
+        return images;
     }
 
     public void setImages(Set<Image> images) {

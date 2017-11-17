@@ -2,13 +2,12 @@ package br.com.lny.service;
 
 import br.com.lny.dao.ImageRepository;
 import br.com.lny.model.Image;
-import com.google.common.collect.Lists;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<Image> list() {
         logger.info("Obtaining all images ...");
-        return Lists.newArrayList(imageRepository.findAll());
+        return imageRepository.findAll();
     }
 
     @Override

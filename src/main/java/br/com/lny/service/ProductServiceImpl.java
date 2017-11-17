@@ -2,13 +2,12 @@ package br.com.lny.service;
 
 import br.com.lny.dao.ProductRepository;
 import br.com.lny.model.Product;
-import com.google.common.collect.Lists;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> list() {
         logger.info("Obtaining all products ...");
-        return Lists.newArrayList(productRepository.findAll());
+        return productRepository.findAll();
     }
 
     @Override

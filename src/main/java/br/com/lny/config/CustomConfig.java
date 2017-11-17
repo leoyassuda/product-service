@@ -26,3 +26,29 @@ public class CustomConfig extends WebMvcConfigurerAdapter {
         super.configureMessageConverters(converters);
     }
 }
+
+
+
+
+/*
+@Configuration
+public class CustomConfig extends WebMvcConfigurationSupport {
+
+    @Bean
+    public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        jsonConverter.setObjectMapper(objectMapper);
+        return jsonConverter;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(customJackson2HttpMessageConverter());
+        super.addDefaultHttpMessageConverters(new ArrayList<>());
+    }
+}*/
