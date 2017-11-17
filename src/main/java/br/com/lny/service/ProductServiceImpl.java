@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = LogManager.getLogger(ProductServiceImpl.class);
@@ -20,6 +19,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Transactional
     @Override
     public List<Product> list() {
         logger.info("Obtaining all products ...");

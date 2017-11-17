@@ -1,8 +1,5 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import javax.persistence.*;
@@ -24,8 +21,7 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_product_id")
     private Product parent;
 
@@ -35,7 +31,8 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Image> images;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(String name, String description, Product parent, Set<Product> children, Set<Image> images) {
         this.name = name;

@@ -1,7 +1,5 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,8 +15,7 @@ public class Image implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
