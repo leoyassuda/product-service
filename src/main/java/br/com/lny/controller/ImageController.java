@@ -1,8 +1,8 @@
 package br.com.lny.controller;
 
 import br.com.lny.model.ErrorInfo;
-import br.com.lny.model.Product;
-import br.com.lny.service.ProductService;
+import br.com.lny.model.Image;
+import br.com.lny.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,40 +11,40 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
-public class ProductController {
+@RequestMapping("/api/image")
+public class ImageController {
 
     @Autowired
-    private ProductService productService;
+    private ImageService imageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Product> getProducts() {
-        return productService.list();
+    public List<Image> getImages() {
+        return imageService.list();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Product getProduct(@PathVariable Long id) {
-        return productService.findById(id);
+    public Image getImage(@PathVariable Long id) {
+        return imageService.findById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public Image saveImage(@RequestBody Image image) {
+        return imageService.saveImage(image);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Product updateProduct(@RequestBody Product product) {
-        return productService.updateProduct(product);
+    public Image updateImage(@RequestBody Image image) {
+        return imageService.updateImage(image);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public void deleteImage(@PathVariable Long id) {
+        imageService.deleteImage(id);
     }
 
     @RequestMapping(value = "/listWithAllProperties", method = RequestMethod.GET)
-    public List<Product> listProductsWithAllProperties() {
-        return productService.listProductsWithAllProperties();
+    public List<Image> listImagesWithAllProperties() {
+        return imageService.listImagesWithAllProperties();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

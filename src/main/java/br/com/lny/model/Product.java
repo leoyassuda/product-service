@@ -1,11 +1,15 @@
 package br.com.lny.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.google.common.collect.Sets;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 public class Product implements Serializable {
 
@@ -21,15 +25,15 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_product_id")
     private Product parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Product> children;
+    @OneToMany(mappedBy = "parent")
+    private Set<Product> children = new HashSet<>();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Image> images;
+    @OneToMany(mappedBy = "product")
+    private Set<Image> images = new HashSet<>();
 
     public Product() {
     }

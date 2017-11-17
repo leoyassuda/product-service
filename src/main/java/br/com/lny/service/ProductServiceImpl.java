@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product product) {
-        logger.info("Finding a product ...");
+        logger.info("Updating a product ...");
         return productRepository.save(product);
     }
 
@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(id);
     }
 
+    @Transactional
     @Override
     public List<Product> listProductsWithAllProperties() {
         logger.info("Obtaining all products...");
