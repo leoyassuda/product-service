@@ -3,7 +3,6 @@ package br.com.lny.controller;
 import br.com.lny.model.ErrorInfo;
 import br.com.lny.model.Image;
 import br.com.lny.model.ImageFilter;
-import br.com.lny.model.ProductFilter;
 import br.com.lny.service.ImageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
