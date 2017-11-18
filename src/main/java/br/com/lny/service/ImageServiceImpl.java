@@ -18,7 +18,7 @@ public class ImageServiceImpl implements ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Image> list() {
         logger.info("Obtaining all images ...");
@@ -49,7 +49,7 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.delete(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<Image> listImagesWithAllProperties() {
         logger.info("Obtaining all images...");

@@ -26,5 +26,5 @@ buildNumber.properties
 *.tar.gz
 *.rar
 
-product-service.iml
 .idea
+*.iml

@@ -1,11 +1,11 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity

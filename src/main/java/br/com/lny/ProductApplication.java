@@ -3,8 +3,9 @@ package br.com.lny;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = RepositoryRestMvcAutoConfiguration.class)
 @EnableAutoConfiguration
 public class ProductApplication {
 

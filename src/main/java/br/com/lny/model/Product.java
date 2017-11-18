@@ -1,15 +1,17 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("productFilter")
 @Entity
 public class Product implements Serializable {
 
@@ -25,7 +27,6 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_product_id")
     private Product parent;
