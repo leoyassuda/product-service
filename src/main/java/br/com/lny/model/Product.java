@@ -1,9 +1,6 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Product implements Serializable {
 
@@ -28,13 +25,16 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_product_id")
     private Product parent;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private Set<Product> children = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<Image> images = new HashSet<>();
 

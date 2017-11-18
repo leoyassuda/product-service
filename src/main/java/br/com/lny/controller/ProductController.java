@@ -4,22 +4,31 @@ import br.com.lny.model.ErrorInfo;
 import br.com.lny.model.Product;
 import br.com.lny.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
 
+    private final ProjectionFactory projectionFactory;
+
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    public ProductController(ProjectionFactory projectionFactory) {
+        this.projectionFactory = projectionFactory;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public List<Product> getProducts() {
-        return productService.list();
+        return productService.list().stream().map(product -> projectionFactory.createProjection(Product.class, product)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
