@@ -16,4 +16,6 @@ public interface ImageService {
     void deleteImage(Long id);
 
     List<Image> listImagesWithAllProperties();
+
+    List<Image> findByIdProduct(Long idProduct);
 }

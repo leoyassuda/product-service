@@ -1,17 +1,20 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonFilter("productFilter")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Entity
 public class Product implements Serializable {
 
@@ -31,23 +34,13 @@ public class Product implements Serializable {
     @JoinColumn(name = "parent_product_id")
     private Product parent;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private Set<Product> children = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<Image> images = new HashSet<>();
 
     public Product() {
-    }
-
-    public Product(String name, String description, Product parent, Set<Product> children, Set<Image> images) {
-        this.name = name;
-        this.description = description;
-        this.parent = parent;
-        this.children = children;
-        this.images = images;
     }
 
     public Long getId() {

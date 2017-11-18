@@ -7,12 +7,12 @@ import com.fasterxml.jackson.databind.ser.PropertyFilter;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 
-public class ProductFilter {
+public class ImageFilter {
 
     private PropertyFilter basicProperties = new SimpleBeanPropertyFilter() {
         @Override
         public void serializeAsField(Object obj, JsonGenerator jsonGenerator, SerializerProvider provider, PropertyWriter writer) throws Exception {
-            if (!writer.getName().equals("parent") && !writer.getName().equals("children") && !writer.getName().equals("images")) {
+            if (!writer.getName().equals("product")) {
                 writer.serializeAsField(obj, jsonGenerator, provider);
             } else if (!jsonGenerator.canOmitFields()) {
                 writer.serializeAsOmittedField(obj, jsonGenerator, provider);
@@ -33,21 +33,17 @@ public class ProductFilter {
     private PropertyFilter allProperties = new SimpleBeanPropertyFilter() {
         @Override
         public void serializeAsField(Object obj, JsonGenerator jsonGenerator, SerializerProvider provider, PropertyWriter writer) throws Exception {
-            if (!writer.getName().equals("parent")) {
-                writer.serializeAsField(obj, jsonGenerator, provider);
-            } else if (!jsonGenerator.canOmitFields()) {
-                writer.serializeAsOmittedField(obj, jsonGenerator, provider);
-            }
+            writer.serializeAsField(obj, jsonGenerator, provider);
         }
 
         @Override
         protected boolean include(BeanPropertyWriter writer) {
-            return true;
+            return false;
         }
 
         @Override
         protected boolean include(PropertyWriter writer) {
-            return true;
+            return false;
         }
     };
 

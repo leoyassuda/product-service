@@ -56,5 +56,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.listProductsWithAllProperties();
     }
 
+    @Override
+    public List<Product> findChildren(Long id) {
+        logger.info("Obtaining children ...");
+        return productRepository.listChildren(id);
+    }
+
 
 }

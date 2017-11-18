@@ -55,4 +55,10 @@ public class ImageServiceImpl implements ImageService {
         logger.info("Obtaining all images...");
         return imageRepository.listImagesWithAllProperties();
     }
+
+    @Override
+    public List<Image> findByIdProduct(Long idProduct) {
+        logger.info("Obtaining all images...");
+        return imageRepository.listByIdProduct(idProduct);
+    }
 }

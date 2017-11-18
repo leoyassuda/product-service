@@ -1,6 +1,7 @@
 package br.com.lny.controller;
 
 import br.com.lny.model.ErrorInfo;
+import br.com.lny.model.ImageFilter;
 import br.com.lny.model.Product;
 import br.com.lny.model.ProductFilter;
 import br.com.lny.service.ProductService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
@@ -22,6 +24,7 @@ public class ProductController {
     private ProductService productService;
 
     private ProductFilter productFilter = new ProductFilter();
+    private ImageFilter imageFilter = new ImageFilter();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -59,9 +62,28 @@ public class ProductController {
 
     @RequestMapping(value = "/listWithAllProperties", method = RequestMethod.GET, produces = "application/json")
     public String listProductsWithAllProperties() throws JsonProcessingException {
-        FilterProvider filters = new SimpleFilterProvider().addFilter("productFilter", productFilter.getAllProperties());
+        FilterProvider filters = new SimpleFilterProvider().addFilter("productFilter", productFilter.getAllProperties())
+                .addFilter("imageFilter", imageFilter.getAllProperties());
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.writer(filters).writeValueAsString(productService.listProductsWithAllProperties());
+
+        List<Product> list = productService.listProductsWithAllProperties();
+
+        return mapper.writer(filters).writeValueAsString(list);
+    }
+
+    @RequestMapping(value = "/{id}/childrenBasic", method = RequestMethod.GET, produces = "application/json")
+    public String getChildrenBasic(@PathVariable Long id) throws JsonProcessingException {
+        FilterProvider filters = new SimpleFilterProvider().addFilter("productFilter", productFilter.getBasicProperties());
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writer(filters).writeValueAsString(productService.findChildren(id));
+    }
+
+    @RequestMapping(value = "/{id}/childrenAllProperties", method = RequestMethod.GET, produces = "application/json")
+    public String getChildrenAllProperties(@PathVariable Long id) throws JsonProcessingException {
+        FilterProvider filters = new SimpleFilterProvider().addFilter("productFilter", productFilter.getAllProperties())
+                .addFilter("imageFilter", imageFilter.getAllProperties());
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writer(filters).writeValueAsString(productService.findChildren(id));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

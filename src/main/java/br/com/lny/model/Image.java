@@ -1,13 +1,17 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonFilter("imageFilter")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Entity
 public class Image implements Serializable {
 
@@ -20,17 +24,11 @@ public class Image implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
     public Image() {
-    }
-
-    public Image(String type, Product product) {
-        this.type = type;
-        this.product = product;
     }
 
     public Long getId() {

@@ -11,11 +11,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <hibernate-core.version>5.2.12.Final</hibernate-core.version>
-        <hibernate-search.version>5.8.2.Final</hibernate-search.version>
         <h2.version>1.4.196</h2.version>
         <guava.version>23.4-jre</guava.version>
-        <jackson-datatype-hibernate5.version>2.9.0</jackson-datatype-hibernate5.version>
     </properties>
 
     <parent>
@@ -52,12 +49,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-hibernate5</artifactId>
-            <version>${jackson-datatype-hibernate5.version}</version>
         </dependency>
 
         <dependency>
