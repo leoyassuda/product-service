@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(Long id) {
         logger.info("Finding a product ...");
-        return productRepository.findOne(id);
+        return productRepository.getOne(id);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         logger.info("Deleting a product ...");
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
 
     @Transactional

@@ -28,7 +28,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image findById(Long id) {
         logger.info("Finding a image ...");
-        return imageRepository.findOne(id);
+        return imageRepository.getOne(id);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void deleteImage(Long id) {
         logger.info("Deleting a image ...");
-        imageRepository.delete(id);
+        imageRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)

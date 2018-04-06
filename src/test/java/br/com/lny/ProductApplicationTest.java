@@ -3,6 +3,7 @@ package br.com.lny;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,7 +28,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+// Enable JMX so we can test the MBeans (you can't do this in a properties file)
+@TestPropertySource(properties = { "spring.jmx.enabled:true",
+        "spring.datasource.jmx-enabled:true" })
+@ActiveProfiles("scratch")
+//@AutoConfigureMockMvc
 public class ProductApplicationTest {
 
     private static final Logger logger = LogManager.getLogger(ProductApplicationTest.class);
@@ -32,6 +41,8 @@ public class ProductApplicationTest {
     public OutputCapture output = new OutputCapture();
 
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mvc;
 
     @Autowired
@@ -40,9 +51,13 @@ public class ProductApplicationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Before
+    public void setUp() {
+        this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+    }
+
     @Test
     public void testLogger() {
-
         logger.info("Hello World - Teste de log4j");
         this.output.expect(containsString("Hello World - Teste de log4j"));
     }

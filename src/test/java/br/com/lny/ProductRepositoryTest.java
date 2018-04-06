@@ -2,23 +2,25 @@ package br.com.lny;
 
 import br.com.lny.dao.ProductRepository;
 import br.com.lny.model.Product;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ProductRepositoryTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
+//    @Autowired
+//    private TestEntityManager entityManager;
 
     @Autowired
     private ProductRepository productRepository;
@@ -26,11 +28,14 @@ public class ProductRepositoryTest {
     @Test
     public void persistProductRepositoryTest() throws Exception {
 
+        this.productRepository.flush();
         Product product = new Product();
         product.setName("Product Test Persist");
         product.setDescription("Description Test Persist");
 
-        this.entityManager.persist(product);
+        //this.entityManager.persist(product);
+        this.productRepository.save(product);
+        this.productRepository.flush();
         List<Product> result = this.productRepository.findByName("Product Test Persist");
 
         assertThat(result.size()).isEqualTo(1);
@@ -45,7 +50,7 @@ public class ProductRepositoryTest {
         product.setName("Product Test Update");
         product.setDescription("Description Test Update");
 
-        this.entityManager.persist(product);
+        this.productRepository.save(product);
         List<Product> result = this.productRepository.findByName("Product Test Update");
 
         assertThat(result.size()).isEqualTo(1);
@@ -68,14 +73,14 @@ public class ProductRepositoryTest {
         product.setName("Product Test Delete");
         product.setDescription("Description Test Delete");
 
-        this.entityManager.persist(product);
+        this.productRepository.save(product);
         List<Product> result = this.productRepository.findByName("Product Test Delete");
 
         assertThat(result.size()).isEqualTo(1);
         assertThat(result.get(0).getName()).isEqualTo("Product Test Delete");
 
         Product productDelete = result.get(0);
-        this.productRepository.delete(productDelete.getId());
+        this.productRepository.delete(productDelete);
 
         result = this.productRepository.findByName("Product Test Delete");
         assertThat(result.isEmpty()).isEqualTo(true);
