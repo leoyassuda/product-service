@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -28,11 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-// Enable JMX so we can test the MBeans (you can't do this in a properties file)
-@TestPropertySource(properties = { "spring.jmx.enabled:true",
-        "spring.datasource.jmx-enabled:true" })
-@ActiveProfiles("scratch")
-//@AutoConfigureMockMvc
+@TestPropertySource(properties = {"spring.jmx.enabled:true", "spring.datasource.jmx-enabled:true"})
+@ActiveProfiles("test")
 public class ProductApplicationTest {
 
     private static final Logger logger = LogManager.getLogger(ProductApplicationTest.class);
@@ -62,6 +58,7 @@ public class ProductApplicationTest {
         this.output.expect(containsString("Hello World - Teste de log4j"));
     }
 
+    @Test
     public void validateLoggersEndpoint() throws Exception {
         this.mvc.perform(get("/application/loggers/org.apache.coyote.http11.Http11NioProtocol"))
                 .andExpect(status().isOk())
@@ -73,6 +70,13 @@ public class ProductApplicationTest {
     public void verifyStatus() {
         String body = this.restTemplate.getForObject("/", String.class);
         Assert.assertEquals(body.toUpperCase(), "OK");
+    }
+
+    @Test
+    public void verifyHealth() throws Exception {
+        this.mvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"status\":\"UP\"")));
     }
 
     @Test

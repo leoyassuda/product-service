@@ -15,7 +15,7 @@ public class Image implements Serializable {
     private static final long serialVersionUID = -2490846534235609788L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "type", nullable = false)

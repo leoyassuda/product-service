@@ -5,10 +5,7 @@ import br.com.lny.model.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -16,24 +13,19 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
 public class ProductRepositoryTest {
-
-//    @Autowired
-//    private TestEntityManager entityManager;
 
     @Autowired
     private ProductRepository productRepository;
 
     @Test
-    public void persistProductRepositoryTest() throws Exception {
+    public void persistProductRepositoryTest() {
 
-        this.productRepository.flush();
         Product product = new Product();
         product.setName("Product Test Persist");
         product.setDescription("Description Test Persist");
 
-        //this.entityManager.persist(product);
         this.productRepository.save(product);
         this.productRepository.flush();
         List<Product> result = this.productRepository.findByName("Product Test Persist");
@@ -44,7 +36,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void updateProductRepositoryTest() throws Exception {
+    public void updateProductRepositoryTest() {
 
         Product product = new Product();
         product.setName("Product Test Update");
@@ -67,7 +59,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void deleteProductRepositoryTest() throws Exception {
+    public void deleteProductRepositoryTest() {
 
         Product product = new Product();
         product.setName("Product Test Delete");
