@@ -2,10 +2,7 @@ package br.com.lny;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,7 +55,7 @@ public class ProductApplicationTest {
         this.output.expect(containsString("Hello World - Teste de log4j"));
     }
 
-    @Test
+    @Ignore
     public void validateLoggersEndpoint() throws Exception {
         this.mvc.perform(get("/application/loggers/org.apache.coyote.http11.Http11NioProtocol"))
                 .andExpect(status().isOk())
