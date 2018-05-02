@@ -3,10 +3,10 @@ node {
    stage('Clone Repository') {
         // Get some code from a GitHub repository
         git 'https://leo-yassuda@bitbucket.org/leo-yassuda/product-service.git'
-
    }
    stage('Build Maven Image') {
-        docker.build("maven-build }
+        docker.build("maven-build
+   }
 
    stage('Run Maven Container') {
 
@@ -22,7 +22,7 @@ node {
          //Remove maven-build-container if it exisits
         sh " docker rm -f java-deploy-container"
 
-        sh "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 deploys/produtc-service-deploy"
+        sh "docker run --nocker.build("maveame java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 deploys/produtc-service-deploy"
    }
 
 }
