@@ -5,7 +5,7 @@ node {
         git 'https://leo-yassuda@bitbucket.org/leo-yassuda/product-service.git'
    }
    stage('Build Maven Image') {
-        docker.build("maven-build")
+        docker.build("maven")
    }
 
    stage('Run Maven Container') {
@@ -14,7 +14,7 @@ node {
         sh " docker rm -f maven-build-container"
 
         //Run maven image
-        sh "docker run --rm --name maven-build-container maven-build"
+        sh "docker run --rm --name maven-build-container maven"
    }
 
    stage('Deploy Spring Boot Application') {
