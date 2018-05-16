@@ -6,17 +6,16 @@ Product-Service is a basic API, which is able to do the CRUD operations on a Pro
 
 Cloning the repo
 ```
-git clone https://leo-yassuda@bitbucket.org/leo-yassuda/product-service.git
+git clone https://bitbucket.org/leo-yassuda/product-service.git
 ```
 
 ### Prerequisites
 
 What things you need to install the software and how to install them
 
-```
-Java 1.8
-Maven 3
-```
+> - Java 1.8
+> - Maven 3
+
 
 ### Installing
 
@@ -40,29 +39,29 @@ mvn spring-boot:run
 
 ### API
 
-```
-/ = return only a 'OK' message
 
-/api/image = GET, POST, PUT operations - (GET) return Images without relationships, only the basic properties
+> / = return only a 'OK' message
+> 
+> /api/image = GET, POST, PUT operations - (GET) return Images without relationships, only the basic properties
+> 
+> /api/image/{id} = DELETE a specific Image
+> 
+> /api/image/{id} = get a specific Image
+> 
+> /api/image/product/{id} = get all Images of a specific Product
+> 
+> /api/product = GET, POST, PUT operations - (GET) return products without relationships, only the basic properties
+> 
+> /api/product/{id} = DELETE a specific Product
+> 
+> /api/product/{id}/childrenBasic = GET - return all Products children of a specific Product parent
+> 
+> /api/product/{id} = GET a specific Product
+> 
+> /api/product/listWithAllProperties = (GET) return products with all properties and relationships but only the basic properties for the children and Images
+> 
+> /api/product/{id}/childrenAllProperties = (GET) return products with all properties and relationships
 
-/api/image/{id} = DELETE a specific Image
-
-/api/image/{id} = get a specific Image
-
-/api/image/product/{id} = get all Images of a specific Product
-
-/api/product = GET, POST, PUT operations - (GET) return products without relationships, only the basic properties
-
-/api/product/{id} = DELETE a specific Product
-
-/api/product/{id}/childrenBasic = GET - return all Products children of a specific Product parent
-
-/api/product/{id} = GET a specific Product
-
-/api/product/listWithAllProperties = (GET) return products with all properties and relationships but only the basic properties for the children and Images
-
-/api/product/{id}/childrenAllProperties = (GET) return products with all properties and relationships
-```
 
 ## Built With
 
