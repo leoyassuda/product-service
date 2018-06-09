@@ -39,7 +39,6 @@ mvn spring-boot:run
 
 ### API
 
-
 > / = return only a 'OK' message
 > 
 > /api/image = GET, POST, PUT operations - (GET) return Images without relationships, only the basic properties
