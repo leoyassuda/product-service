@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 
 @SpringBootApplication(exclude = RepositoryRestMvcAutoConfiguration.class)
-@EnableAutoConfiguration
 public class ProductApplication {
 
     public static void main(String[] args) {
