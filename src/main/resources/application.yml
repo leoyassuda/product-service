@@ -3,14 +3,12 @@ spring:
     active: local
   application:
     name: product-service
-  main:
-    banner-mode: "off"
-  security:
-    user:
-      name: user
-      password: password
 server:
-  port: 8087
+  port: 8100
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
 info:
   app:
     name: Product Service
@@ -28,6 +26,8 @@ management:
       exposure:
         include: health,info,metrics,shutdown
 ---
+profiles: local
+banner: console
 spring:
   profiles: local
   datasource:
@@ -56,10 +56,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
-  security:
-    user:
-      name: user
-      password: password
 ---
 spring:
   profiles: cloud
