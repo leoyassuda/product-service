@@ -62,7 +62,7 @@ spring:
 eureka:
   client:
     enabled: false
-    
+
 ---
 spring:
   profiles: cloud
