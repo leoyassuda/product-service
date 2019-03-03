@@ -43,9 +43,12 @@ spring:
   devtools:
     livereload:
       enabled: true
+
 ---
 spring:
   profiles: test
+  main:
+    banner-mode: "off"
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
@@ -56,6 +59,10 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+eureka:
+  client:
+    enabled: false
+    
 ---
 spring:
   profiles: cloud
