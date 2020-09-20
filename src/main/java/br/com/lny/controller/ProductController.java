@@ -23,8 +23,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    private ProductFilter productFilter = new ProductFilter();
-    private ImageFilter imageFilter = new ImageFilter();
+    private final ProductFilter productFilter = new ProductFilter();
+    private final ImageFilter imageFilter = new ImageFilter();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody

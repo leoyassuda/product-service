@@ -2,8 +2,8 @@ package br.com.lny;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,64 +33,51 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductApplicationTest {
 
-	private static final Logger logger = LogManager.getLogger(ProductApplicationTest.class);
+    private static final Logger logger = LogManager.getLogger(ProductApplicationTest.class);
 
-	@Autowired
-	private WebApplicationContext context;
+    @Autowired
+    private WebApplicationContext context;
 
-	@Autowired
-	private MockMvc mvc;
+    @Autowired
+    private MockMvc mvc;
 
-	@Autowired
-	private ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
-	private URL base;
+    private URL base;
 
-	@LocalServerPort
-	int port;
+    @LocalServerPort
+    int port;
 
-	@BeforeEach
-	void init() throws MalformedURLException {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-		this.base = new URL("http://localhost:" + port);
-	}
+    @BeforeEach
+    void init() throws MalformedURLException {
+        this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+        this.base = new URL("http://localhost:" + port);
+    }
 
-	@Test
-	public void testLogger() {
-		logger.info("Hello World - Teste de log4j");
-//		this.ooutput.expect(containsString("Hello World - Teste de log4j"));
-	}
+    // TODO: verificar log level
+    @Disabled
+    public void validateLoggersEndpoint() throws Exception {
+        this.mvc.perform(get("/application/loggers/org.apache.coyote.http11.Http11NioProtocol"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("{\"configuredLevel\":\"WARN\","
+                        + "\"effectiveLevel\":\"WARN\"}")));
+    }
 
-	public void validateLoggersEndpoint() throws Exception {
-		this.mvc.perform(get("/application/loggers/org.apache.coyote.http11.Http11NioProtocol"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(equalTo("{\"configuredLevel\":\"WARN\","
-						+ "\"effectiveLevel\":\"WARN\"}")));
-	}
+    @Test
+    public void verifyHealth() throws Exception {
+        this.mvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"status\":\"UP\"")));
+    }
 
-	@Ignore
-	public void verifyStatus() throws MalformedURLException {
-		String body = this.restTemplate.getForObject(this.base.toString(), String.class);
-		base = new URL("http://localhost:" + port);
-		restTemplate.getForObject(this.base.toString(), String.class);
-		//TODO: fix test
-		assertEquals(body.toUpperCase(), "OK");
-	}
-
-	@Test
-	public void verifyHealth() throws Exception {
-		this.mvc.perform(get("/actuator/health"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"status\":\"UP\"")));
-	}
-
-	@Test
-	public void verifyGetProductSpecific() throws Exception {
-		this.mvc.perform(get("/api/product/1"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"name\":\"Product 1\"")));
-	}
+    @Test
+    public void verifyGetProductSpecific() throws Exception {
+        this.mvc.perform(get("/api/product/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"name\":\"Product 1\"")));
+    }
 }

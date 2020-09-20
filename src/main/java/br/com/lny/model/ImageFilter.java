@@ -30,7 +30,7 @@ public class ImageFilter {
         }
     };
 
-    private PropertyFilter allProperties = new SimpleBeanPropertyFilter() {
+    private final PropertyFilter allProperties = new SimpleBeanPropertyFilter() {
         @Override
         public void serializeAsField(Object obj, JsonGenerator jsonGenerator, SerializerProvider provider, PropertyWriter writer) throws Exception {
             writer.serializeAsField(obj, jsonGenerator, provider);

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 
 public class ProductFilter {
 
-    private PropertyFilter basicProperties = new SimpleBeanPropertyFilter() {
+    private final PropertyFilter basicProperties = new SimpleBeanPropertyFilter() {
         @Override
         public void serializeAsField(Object obj, JsonGenerator jsonGenerator, SerializerProvider provider, PropertyWriter writer) throws Exception {
             if (!writer.getName().equals("parent") && !writer.getName().equals("children") && !writer.getName().equals("images")) {
@@ -30,7 +30,7 @@ public class ProductFilter {
         }
     };
 
-    private PropertyFilter allProperties = new SimpleBeanPropertyFilter() {
+    private final PropertyFilter allProperties = new SimpleBeanPropertyFilter() {
         @Override
         public void serializeAsField(Object obj, JsonGenerator jsonGenerator, SerializerProvider provider, PropertyWriter writer) throws Exception {
             if (!writer.getName().equals("parent")) {

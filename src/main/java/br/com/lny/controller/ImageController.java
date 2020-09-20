@@ -21,7 +21,7 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    private ImageFilter imageFilter = new ImageFilter();
+    private final ImageFilter imageFilter = new ImageFilter();
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -71,8 +71,7 @@ public class ImageController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    ErrorInfo
-    handleBadRequest(HttpServletRequest req, Exception ex) {
+    public ErrorInfo handleBadRequest(HttpServletRequest req, Exception ex) {
         return new ErrorInfo(req.getRequestURL().toString(), ex);
     }
 }
