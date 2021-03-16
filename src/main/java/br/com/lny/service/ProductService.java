@@ -28,7 +28,8 @@ public class ProductService {
                 Product.builder()
                         .name("notebook")
                         .description("aaaa")
-                        .build());
+                        .build())
+        .subscribe();
     }
 }
 

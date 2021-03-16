@@ -1,10 +1,13 @@
 spring:
+  application:
+    name: "product-service"
   main:
     banner-mode: "off"
-  application:
-    name: product-service
+  data:
+    mongodb:
+      uri: ${env.MONGO_URI}
 mongo:
-  databaseName: product_db
+  databaseName: "product_db"
 ---
 
 

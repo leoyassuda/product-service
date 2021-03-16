@@ -18,13 +18,13 @@ class ProductRepositoryTest {
     private ProductRepository productRepository;
 
     @BeforeEach
-    void dataSetup(){
-        var product = productRepository.save(
+    void dataSetup() {
+        productRepository.save(
                 Product.builder()
                         .name("tv")
                         .description("Start TV")
                         .build())
-                .block();
+                .subscribe();
     }
 
     @DisplayName("given name to find a product"
