@@ -1,0 +1,11 @@
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: product-service
+mongo:
+  databaseName: product_db
+---
+
+
+  
