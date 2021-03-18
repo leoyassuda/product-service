@@ -24,7 +24,7 @@ class ProductRepositoryTest {
                         .name("tv")
                         .description("Start TV")
                         .build())
-                .subscribe();
+                .block();
     }
 
     @DisplayName("given name to find a product"
