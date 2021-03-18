@@ -1,110 +1,25 @@
 package br.com.lny.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonFilter("productFilter")
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-@Entity
-public class Product implements Serializable {
-
-    private static final long serialVersionUID = 3762641811657211050L;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Document(collection = "products")
+public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_product_id")
-    private Product parent;
-
-    @OneToMany(mappedBy = "parent")
-    private Set<Product> children = new HashSet<>();
-
-    @OneToMany(mappedBy = "product")
-    private Set<Image> images = new HashSet<>();
-
-    public Product() {
-    }
-
-    public Product(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Product getParent() {
-        return parent;
-    }
-
-    public void setParent(Product parent) {
-        this.parent = parent;
-    }
-
-    public Set<Product> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<Product> children) {
-        this.children = children;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", parent=" + parent +
-                ", children=" + children +
-                ", images=" + images +
-                '}';
-    }
 
 }
