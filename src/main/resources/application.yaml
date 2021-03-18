@@ -1,11 +1,10 @@
+server:
+  port: 8181
 spring:
   application:
     name: "product-service"
   main:
     banner-mode: "off"
-  data:
-    mongodb:
-      uri: ${env.MONGO_URI}
 mongo:
   databaseName: "product_db"
 ---
