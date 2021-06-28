@@ -5,9 +5,12 @@ spring:
     name: "product-service"
   main:
     banner-mode: "off"
+  data:
+    mongodb:
+      database: "product-service"
+# swagger-ui custom path
+springdoc:
+  swagger-ui.path: /swagger-ui.html
 mongo:
-  databaseName: "product_db"
+  databaseName: "product-service"
 ---
-
-
-  

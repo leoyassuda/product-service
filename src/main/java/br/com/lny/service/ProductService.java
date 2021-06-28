@@ -19,17 +19,24 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Mono<Product> getByName(String name) {
-        return productRepository.findFirstByName(name);
+    public Flux<Product> getByName(String name) {
+        return productRepository.findAllByName(name);
     }
 
-    public void save() {
-        productRepository.save(
-                Product.builder()
-                        .name("notebook")
-                        .description("aaaa")
-                        .build())
-        .subscribe();
+    public Mono<Product> save(final Product product) {
+        return productRepository.save(product);
+    }
+
+    public Mono<Product> getById(String id) {
+        return productRepository.findById(id);
+    }
+
+    public Mono<Product> update(String id, final Product product) {
+        return productRepository.save(product);
+    }
+
+    public Mono<Void> delete(String id) {
+        return productRepository.deleteById(id);
     }
 }
 

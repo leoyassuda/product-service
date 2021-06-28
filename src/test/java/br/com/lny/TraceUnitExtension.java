@@ -22,6 +22,5 @@ public class TraceUnitExtension implements AfterEachCallback, BeforeEachCallback
 	public void beforeEach(ExtensionContext extensionContext) throws Exception {
 		sysOut = System.out;
 		System.setOut(new PrintStream(outContent));
-
 	}
 }

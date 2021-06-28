@@ -1,6 +1,7 @@
 package br.com.lny.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.config.AbstractReactiveMongoConfiguration;
@@ -13,11 +14,12 @@ public class MongoConfig extends AbstractReactiveMongoConfiguration {
     @Autowired
     private Environment env;
 
+    @Value("${mongo.databaseName}")
+    private String databaseName;
+
     @Override
     protected String getDatabaseName() {
-        final String mongoDatabaseName = env.getProperty("MONGO_DATABASE_NAME");
-        System.out.println("======= mongoDatabaseName: " + mongoDatabaseName);
-        return mongoDatabaseName;
+        return databaseName;
     }
 
 }

@@ -5,11 +5,9 @@ import br.com.lny.service.ProductService;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -23,18 +21,41 @@ public class ProductController {
 
     private final ProductService productService;
 
-
-    @GetMapping
     public Flux<Product> getProducts() {
         log.info("ProductController#getProducts: get all products");
-
         return productService.getProducts();
     }
 
+    @GetMapping
+    public Flux<Product> getProducts(@RequestParam(required = false, name = "name") final String name) {
+        if (StringUtils.isEmpty(name))
+            return this.getProducts();
+
+        log.info("ProductController#getProductsByName: name=" + name);
+        return productService.getByName(name);
+    }
+
+    @GetMapping("{id}")
+    public Mono<Product> getById(@PathVariable("id") final String id) {
+        log.info("ProductController#getById: id=" + id);
+        return productService.getById(id);
+    }
+
+    @PutMapping("{id}")
+    public Mono<Product> updateById(@PathVariable("id") final String id, @RequestBody final Product product) {
+        log.info("ProductController#updateById: id=" + id);
+        return productService.update(id, product);
+    }
+
+    @DeleteMapping("{id}")
+    public Mono<Void> delete(@PathVariable final String id) {
+        log.info("ProductController#delete: id=" + id);
+        return productService.delete(id);
+    }
+
     @PostMapping
-    public Mono<HttpResponseStatus> create() {
-        productService.save();
-        return Mono.just(HttpResponseStatus.CREATED);
+    public Mono<Product> create(@RequestBody final Product product) {
+        return productService.save(product);
     }
 
     @GetMapping(

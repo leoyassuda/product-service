@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface ProductRepository extends ReactiveMongoRepository<Product, String> {
 
-    Flux<Product> findAllByName();
+    Flux<Product> findAllByName(String name);
 
     Mono<Product> findFirstByName(String name);
 }
