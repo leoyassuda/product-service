@@ -55,4 +55,4 @@ Default port is 8181
 
 ### Authors
 
-``* **Leo Yassuda** - *Initial work* - [Next-Blog](https://github.com/leoyassuda/next-blog) - Portifolio [leoyas.com](https://leoyas.com)
+* **Leo Yassuda** - *Initial work* - [Next-Blog](https://github.com/leoyassuda/next-blog) - Portifolio [leoyas.com](https://leoyas.com)

@@ -11,7 +11,7 @@
 
     <groupId>br.com.lny</groupId>
     <artifactId>product-service</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <name>product-java</name>
     <description>Simple reactive service</description>
 
